@@ -1,5 +1,15 @@
-// Инициализация Telegram WebApp (обязательно для Mini App)
+// Обработка темы Telegram
 Telegram.WebApp.ready();
+Telegram.WebApp.onEvent('themeChanged', updateTheme);
+updateTheme();
+
+function updateTheme() {
+    const theme = Telegram.WebApp.themeParams;
+    document.body.classList.toggle('dark', theme.bg_color && parseInt(theme.bg_color.substring(1), 16) < 0x888888);
+    document.documentElement.style.setProperty('--bg-color', theme.bg_color || '#ffffff');
+    document.documentElement.style.setProperty('--text-color', theme.text_color || '#000000');
+    // Добавь больше свойств, если нужно (например, --button-bg)
+}
 
 // Данные уровней (вставь свои реальные вопросы и фото-ссылки; всего 10+5+7)
 const levels = [
